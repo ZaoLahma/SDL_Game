@@ -5,6 +5,7 @@
 #include "game_nvm_types.h"
 
 #define GAME_NVM_SIZE (1024u)
+#define GAME_NVM_FILE_NAME "nvm.bin"
 
 typedef enum
 {
@@ -12,7 +13,7 @@ typedef enum
   NUM_NVM_BLOCKS
 } GAME_NvmBlocks;
 
-GAME_NvmBlock nvmBlocks[NUM_NVM_BLOCKS] =
+static GAME_NvmBlock nvmBlocks[NUM_NVM_BLOCKS] =
 {
   {0u, 8u}
 };
