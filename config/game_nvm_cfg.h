@@ -15,7 +15,7 @@ typedef enum
 
 static GAME_NvmBlock nvmBlocks[NUM_NVM_BLOCKS] =
 {
-  {0u, 8u}
+  {0u, 8u, false}
 };
 
 #endif
