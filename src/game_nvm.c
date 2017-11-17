@@ -1,6 +1,7 @@
 #include "game_nvm.h"
 #include "game_nvm_cfg.h"
 #include "game_nvm_int.h"
+#include "game_debug.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -13,7 +14,11 @@ static void writeBlock(const GAME_NvmBlock* block);
 static void writeBlock(const GAME_NvmBlock* block)
 {
   fseek(nvmFile, block->nvmStartAddr, SEEK_SET);
-  fwrite(&nvmRamMirror[block->nvmStartAddr], block->nvmSize, 1, nvmFile);
+
+  fwrite(&nvmRamMirror[block->nvmStartAddr],
+                       block->nvmSize,
+                       1,
+                       nvmFile);
 }
 
 void NVM_init(void)
@@ -36,12 +41,6 @@ void NVM_init(void)
 
 void NVM_deInit(void)
 {
-  uint32_t i = 0u;
-  for(; i < NUM_NVM_BLOCKS; ++i)
-  {
-    writeBlock(&nvmBlocks[i]);
-  }
-
   fclose(nvmFile);
 }
 
@@ -57,7 +56,11 @@ void NVM_writeBlock(const GAME_NvmBlocks block, uint8_t* data)
     }
   }
 
-  if(NUM_NVM_BLOCKS != indexToWrite)
+  DEBUG_ASSERT(indexToWrite, !NUM_NVM_BLOCKS);
+
+  DEBUG_State state = DEBUG_getState();
+
+  if(DEBUG_NORMAL == state)
   {
     GAME_NvmBlock* blockToWrite = &nvmBlocks[indexToWrite];
     memcpy(&nvmRamMirror[blockToWrite->nvmStartAddr],
@@ -65,5 +68,28 @@ void NVM_writeBlock(const GAME_NvmBlocks block, uint8_t* data)
            blockToWrite->nvmSize);
 
     writeBlock(blockToWrite);
+  }
+}
+
+void NVM_getBlock(const GAME_NvmBlocks block, uint8_t* data)
+{
+  uint32_t i = 0u;
+  uint32_t indexToRead = NUM_NVM_BLOCKS;
+  for(; i < NUM_NVM_BLOCKS; ++i)
+  {
+    if(nvmBlocks[i].nvmType == block)
+    {
+      indexToRead = i;
+    }
+  }
+
+  DEBUG_ASSERT(indexToRead, !NUM_NVM_BLOCKS);
+
+  DEBUG_State state = DEBUG_getState();
+
+  if(DEBUG_NORMAL == state)
+  {
+    GAME_NvmBlock* blockToRead = &nvmBlocks[indexToRead];
+    (void) memcpy(data, &nvmRamMirror[blockToRead->nvmStartAddr], blockToRead->nvmSize);
   }
 }

@@ -10,4 +10,6 @@ void NVM_deInit(void);
 
 void NVM_writeBlock(const GAME_NvmBlocks block, uint8_t* data);
 
+void NVM_getBlock(const GAME_NvmBlocks block, uint8_t* data);
+
 #endif
