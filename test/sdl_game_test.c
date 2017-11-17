@@ -6,7 +6,23 @@
 
 #define NVM_GAME_PARAM_BLOCK_SIZE (8u)
 
+static void TEST_assertDebugState(void);
+
 static void TEST_nvm(void);
+
+static void TEST_assertDebugState(void)
+{
+  DEBUG_State state = DEBUG_getState();
+
+  if(DEBUG_NORMAL == state)
+  {
+    (void) printf("TEST SUCCEEDED\n");
+  }
+  else
+  {
+    (void) printf("TEST FAILED\n");
+  }
+}
 
 static void TEST_nvm(void)
 {
@@ -28,14 +44,5 @@ void TEST_run(void)
 
   TEST_nvm();
 
-  DEBUG_State state = DEBUG_getState();
-
-  if(DEBUG_NORMAL == state)
-  {
-    (void) printf("TEST SUCCEEDED\n");
-  }
-  else
-  {
-    (void) printf("TEST FAILED\n");
-  }
+  TEST_assertDebugState();
 }
