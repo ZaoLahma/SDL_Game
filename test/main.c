@@ -1,8 +1,8 @@
-#include "game_nvm.h"
+#include "sdl_game_test.h"
 
 int main(void)
 {
-  NVM_init();
+  TEST_run();
 
   return 0;
 }

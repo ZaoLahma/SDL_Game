@@ -2,7 +2,6 @@
 #define HEADER_GAME_NVM_TYPES
 
 #include <stdint.h>
-#include <stdbool.h>
 #include "game_nvm_cfg.h"
 
 typedef struct
