@@ -16,7 +16,7 @@ DEBUG_State DEBUG_getState(void);
 #define DEBUG_ASSERT(this, that) \
 if (this != that) \
 { \
-  (void) printf("%s:%u - ASSERT FAILED: %s != %s\n", __FILE__, __LINE__, #this, #that); \
+  (void) printf("%s:%u - ASSERT FAILED: %s (%u) != %s (%u)\n", __FILE__, __LINE__, #this, this, #that, that); \
   DEBUG_setState(DEBUG_FAILED); \
 } \
 
