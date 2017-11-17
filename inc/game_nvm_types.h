@@ -3,12 +3,13 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "game_nvm_cfg.h"
 
 typedef struct
 {
-  char*    nvmStartAddr;
-  uint32_t nvmSize;
-  bool     dirty;
+  GAME_NvmBlocks nvmType;
+  uint32_t       nvmStartAddr;
+  uint32_t       nvmSize;
 } GAME_NvmBlock;
 
 #endif
