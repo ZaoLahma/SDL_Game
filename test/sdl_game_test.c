@@ -1,14 +1,14 @@
 #include "sdl_game_test.h"
-#include "game_nvm.h"
+#include "game_storage.h"
 #include "game_debug.h"
 #include <stdio.h>
 #include <string.h>
 
-#define NVM_GAME_PARAM_BLOCK_SIZE (8u)
+#define STORAGE_GAME_PARAM_BLOCK_SIZE (8u)
 
 static void TEST_assertDebugState(void);
 
-static void TEST_nvm(void);
+static void TEST_storage(void);
 
 static void TEST_assertDebugState(void)
 {
@@ -24,25 +24,25 @@ static void TEST_assertDebugState(void)
   }
 }
 
-static void TEST_nvm(void)
+static void TEST_storage(void)
 {
-    NVM_init();
-    uint8_t testParam[NVM_GAME_PARAM_BLOCK_SIZE] = {0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD, 0xBE, 0xEF};
-    NVM_writeBlock(GAME_PARAM_BLOCK, testParam);
+    STORAGE_init();
+    uint8_t testParam[STORAGE_GAME_PARAM_BLOCK_SIZE] = {0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD, 0xBE, 0xEF};
+    STORAGE_writeBlock(GAME_PARAM_BLOCK, testParam);
 
-    uint8_t testParamToVerify[NVM_GAME_PARAM_BLOCK_SIZE] = "";
-    NVM_getBlock(GAME_PARAM_BLOCK, testParamToVerify);
+    uint8_t testParamToVerify[STORAGE_GAME_PARAM_BLOCK_SIZE] = "";
+    STORAGE_getBlock(GAME_PARAM_BLOCK, testParamToVerify);
 
-    DEBUG_ASSERT(memcmp(testParam, testParamToVerify, NVM_GAME_PARAM_BLOCK_SIZE), 0);
+    DEBUG_ASSERT(memcmp(testParam, testParamToVerify, STORAGE_GAME_PARAM_BLOCK_SIZE), 0);
 
-    NVM_deInit();
+    STORAGE_deInit();
 }
 
 void TEST_run(void)
 {
   (void) printf("TEST START\n");
 
-  TEST_nvm();
+  TEST_storage();
 
   TEST_assertDebugState();
 }
