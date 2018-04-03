@@ -1,11 +1,11 @@
-#include "GameWindow.h"
+#include "gamewindow.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <jobdispatcher.h>
 
 GameWindow::GameWindow()
 {
-  JobDispatcher::GetApi()->Log("GameWindow created");
+  JobDispatcher::GetApi()->Log("gamewindow created");
   window = SDL_CreateWindow(
                               "SDL_GAME",
                               SDL_WINDOWPOS_UNDEFINED,

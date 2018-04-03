@@ -1,4 +1,4 @@
-#include "GameWindow.h"
+#include "gamewindow.h"
 #include "jobdispatcher.h"
 
 int main(void)
