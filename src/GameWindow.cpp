@@ -1,10 +1,11 @@
 #include "GameWindow.h"
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <jobdispatcher.h>
 
 GameWindow::GameWindow()
 {
-  std::cout<<"GameWindow(); called"<<std::endl;
+  JobDispatcher::GetApi()->Log("GameWindow created");
   window = SDL_CreateWindow(
                               "SDL_GAME",
                               SDL_WINDOWPOS_UNDEFINED,
@@ -15,7 +16,7 @@ GameWindow::GameWindow()
                             );
   if(NULL == window)
   {
-    std::cout<<"Failed to create SDL window: %s"<<SDL_GetError()<<std::endl;
+    JobDispatcher::GetApi()->Log("Failed to create SDL window: %s", SDL_GetError());
   }
 }
 
