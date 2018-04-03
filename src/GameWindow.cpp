@@ -4,9 +4,10 @@
 #include <SDL2/SDL.h>
 #include <jobdispatcher.h>
 
-GameWindow::GameWindow()
+GameWindow::GameWindow() : running(false)
 {
   JobDispatcher::GetApi()->Log("gamewindow created");
+
   window = SDL_CreateWindow(
                               "SDL_GAME",
                               SDL_WINDOWPOS_UNDEFINED,
@@ -15,19 +16,41 @@ GameWindow::GameWindow()
                               480,
                               SDL_WINDOW_OPENGL
                             );
-  if(NULL == window)
+  if(nullptr == window)
   {
     JobDispatcher::GetApi()->Log("Failed to create SDL window: %s", SDL_GetError());
   }
+}
 
-  const uint32_t numWindowThreads = 1;
-  JobDispatcher::GetApi()->AddExecGroup(GAME_WINDOW_EXEC_GROUP_ID, numWindowThreads);
+void GameWindow::HandleWindowEvent(const SDL_Event& event)
+{
+  switch(event.window.event)
+  {
+    case SDL_WINDOWEVENT_CLOSE:
+      running = false;
+      break;
+    default:
+      break;
+  }
 }
 
 void GameWindow::Execute()
 {
   JobDispatcher::GetApi()->Log("Execute called");
-  JobDispatcher::GetApi()->NotifyExecutionFinished();
+
+  running = true;
+  SDL_Event event;
+  while(SDL_WaitEvent(&event) && running)
+  {
+    switch(event.type)
+    {
+      case SDL_WINDOWEVENT:
+        HandleWindowEvent(event);
+        break;
+      default:
+        break;
+    }
+  }
 }
 
 GameWindow::~GameWindow()
