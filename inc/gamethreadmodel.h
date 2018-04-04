@@ -3,6 +3,6 @@
 
 #include <defaultexecgroups.h>
 
-static const uint32_t GAME_WINDOW_EXEC_GROUP_ID = EVENT_EXEC_GROUP_ID + 1;
+static const uint32_t GAME_MAIN_LOOP_THREAD_ID = EVENT_EXEC_GROUP_ID + 1;
 
 #endif

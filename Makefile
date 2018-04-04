@@ -1,6 +1,6 @@
 CCOMMAND = g++
 CFLAGS = -Wall -c -Wextra -g --std=c++11
-LINKARGS = -lpthread -lsdl2
+LINKARGS = -lpthread -lsdl2 -lsdl2_image
 SOURCES = $(wildcard src/*.cpp)
 RELEASE_SOURCES = $(wildcard src/release/*.cpp)
 TEST_SOURCES = $(wildcard test/*.cpp)
