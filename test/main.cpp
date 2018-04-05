@@ -1,13 +1,7 @@
-#include "gamewindow.h"
-#include "jobdispatcher.h"
-#include "gamethreadmodel.h"
+#include "gametestfwk.h"
 
 int main(void)
 {
-  GameWindow window;
-  window.Execute();
-
-  JobDispatcher::DropInstance();
-
+  GameTestFwk::GetApi()->DropInstance();
   return 0;
 }
