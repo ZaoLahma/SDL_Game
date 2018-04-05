@@ -2,9 +2,19 @@
 
 GameTestFwk* GameTestFwk::instance = nullptr;
 
+GameTestCase::GameTestCase(std::string& name) : testCaseName(name)
+{
+  GameTestFwk::GetApi()->AddTestCase(this);
+}
+
+std::string GameTestCase::GetTestCaseName() const
+{
+  return testCaseName;
+}
+
 GameTestFwk::GameTestFwk()
 {
-  
+
 }
 
 GameTestFwk* GameTestFwk::GameTestFwk::GetApi()
@@ -15,6 +25,11 @@ GameTestFwk* GameTestFwk::GameTestFwk::GetApi()
   }
 
   return instance;
+}
+
+void GameTestFwk::AddTestCase(GameTestCase* testCase)
+{
+  testCases.push_back(testCase);
 }
 
 void GameTestFwk::DropInstance()
