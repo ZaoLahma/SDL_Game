@@ -1,13 +1,14 @@
 #include "gametestfwk.h"
+#include <iostream>
 
 GameTestFwk* GameTestFwk::instance = nullptr;
 
-GameTestCase::GameTestCase(std::string& name) : testCaseName(name)
+GameTestSuite::GameTestSuite(const std::string& name) : testCaseName(name)
 {
   GameTestFwk::GetApi()->AddTestCase(this);
 }
 
-std::string GameTestCase::GetTestCaseName() const
+std::string GameTestSuite::GameTestSuiteName() const
 {
   return testCaseName;
 }
@@ -27,9 +28,26 @@ GameTestFwk* GameTestFwk::GameTestFwk::GetApi()
   return instance;
 }
 
-void GameTestFwk::AddTestCase(GameTestCase* testCase)
+void GameTestFwk::AddTestCase(GameTestSuite* testCase)
 {
   testCases.push_back(testCase);
+}
+
+uint32_t GameTestFwk::ExecuteTestCases()
+{
+  uint32_t retVal = TESTS_PASSED;
+  GameTestSuiteVector::iterator testCase = testCases.begin();
+
+  for( ; testCase != testCases.end(); ++testCase)
+  {
+    std::cout<<"Running test suite "<<(*testCase)->GameTestSuiteName()<<std::endl;
+    if(!(*testCase)->Execute())
+    {
+      retVal = TESTS_FAILED;
+    }
+  }
+
+  return retVal;
 }
 
 void GameTestFwk::DropInstance()

@@ -4,33 +4,36 @@
 #include <string>
 #include <vector>
 
-class GameTestCase
+class GameTestSuite
 {
 private:
-  GameTestCase();
+  GameTestSuite();
   std::string testCaseName;
 
 protected:
 
 public:
-  GameTestCase(std::string&);
-  std::string GetTestCaseName() const;
+  GameTestSuite(const std::string&);
+  std::string GameTestSuiteName() const;
 
   virtual bool Execute() = 0;
 };
 
-typedef std::vector<GameTestCase*> GameTestCaseVector;
+typedef std::vector<GameTestSuite*> GameTestSuiteVector;
 
 class GameTestFwk
 {
 private:
   GameTestFwk();
-  GameTestCaseVector testCases;
+  GameTestSuiteVector testCases;
   static GameTestFwk* instance;
 protected:
 public:
+  static const uint32_t TESTS_PASSED = 0;
+  static const uint32_t TESTS_FAILED = 1;
   static GameTestFwk* GetApi();
-  void AddTestCase(GameTestCase*);
+  void AddTestCase(GameTestSuite*);
+  uint32_t ExecuteTestCases();
   void DropInstance();
 };
 
