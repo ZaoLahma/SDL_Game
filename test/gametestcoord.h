@@ -6,8 +6,8 @@
 class GameTestCoord : public GameTestSuite
 {
 private:
-  bool TestCtor();
-  bool TestCopyCtor();
+  static bool TestCtor();
+  static bool TestCopyCtor();
 
 protected:
 

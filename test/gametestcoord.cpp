@@ -4,7 +4,8 @@
 
 GameTestCoord::GameTestCoord() : GameTestSuite("GameTestCoord")
 {
-
+  testCases.push_back(GameTestCase("TestCtor", GameTestCoord::TestCtor));
+  testCases.push_back(GameTestCase("TestCopyCtor", GameTestCoord::TestCopyCtor));
 }
 
 bool GameTestCoord::TestCtor()
@@ -23,10 +24,5 @@ bool GameTestCoord::TestCopyCtor()
   GameCoord coord(x, y);
   GameCoord copy(coord);
 
-  return (copy.GetX() == x && copy.GetY() == y);
-}
-
-bool GameTestCoord::Execute()
-{
-  return TestCtor() && TestCopyCtor();
+  return (copy.GetX() == coord.GetX() && copy.GetY() == coord.GetY());
 }
