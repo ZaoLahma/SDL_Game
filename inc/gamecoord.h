@@ -23,6 +23,8 @@ public:
 
   int32_t GetX() const;
   int32_t GetY() const;
+  void SetX(const int32_t);
+  void SetY(const int32_t);
 };
 
 #endif

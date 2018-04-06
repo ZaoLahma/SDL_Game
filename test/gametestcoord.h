@@ -9,6 +9,7 @@ private:
   static bool TestCtor();
   static bool TestCopyCtor();
   static bool TestAssigmentAndComparisonOperator();
+  static bool TestGetAndSet();
 
 protected:
 
