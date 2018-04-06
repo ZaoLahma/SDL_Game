@@ -17,6 +17,18 @@ void GameCoord::operator =(const GameCoord& other)
   y = other.GetY();
 }
 
+bool GameCoord::operator ==(const GameCoord& other) const
+{
+  return ((GetX() == other.GetX()) && (GetY() == other.GetY()));
+}
+
+bool GameCoord::operator !=(const GameCoord& other) const
+{
+  return (!(*this == other));
+}
+
+bool operator ==(const GameCoord& first, const GameCoord& second);
+
 int32_t GameCoord::GetX() const
 {
   return x;

@@ -18,6 +18,8 @@ public:
   GameCoord(const GameCoord&);
 
   void operator =(const GameCoord& other);
+  bool operator ==(const GameCoord&) const;
+  bool operator !=(const GameCoord&) const;
 
   int32_t GetX() const;
   int32_t GetY() const;

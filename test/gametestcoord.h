@@ -8,6 +8,7 @@ class GameTestCoord : public GameTestSuite
 private:
   static bool TestCtor();
   static bool TestCopyCtor();
+  static bool TestAssigmentAndComparisonOperator();
 
 protected:
 
