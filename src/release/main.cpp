@@ -1,11 +1,14 @@
 #include "gamewindow.h"
+#include "gamemainloop.h"
 #include "jobdispatcher.h"
 #include "gamethreadmodel.h"
 
 int main(void)
 {
   GameWindow window;
-  window.Execute();
+  GameMainLoop mainLoop;
+
+  mainLoop.WaitForEvents();
 
   JobDispatcher::DropInstance();
 
