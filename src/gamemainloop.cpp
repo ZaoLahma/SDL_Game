@@ -46,12 +46,13 @@ void GameMainLoop::HandleWindowEvent(const SDL_Event& event)
 void GameMainLoop::WaitForEvents()
 {
   running = true;
-  JobDispatcher::GetApi()->RaiseEvent(GAME_WINDOW_GET_WINDOW_REQ, nullptr);
 
   while(running)
   {
       if(nullptr == renderer)
       {
+        JobDispatcher::GetApi()->RaiseEvent(GAME_WINDOW_GET_WINDOW_REQ, nullptr);
+
         JobDispatcher::GetApi()->Log("Waiting for GetWindowCfm");
         std::unique_lock<std::mutex> getWindowCfmLock(getWindowCfmMutex);
     		getWindowCfmNotification.wait(getWindowCfmLock);
@@ -77,6 +78,8 @@ void GameMainLoop::WaitForEvents()
 
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
+
+        renderReqReceived = false;
       }
   }
 }
