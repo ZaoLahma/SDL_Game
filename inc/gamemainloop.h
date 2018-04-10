@@ -6,15 +6,18 @@
 #include <condition_variable>
 
 struct SDL_Renderer;
+union SDL_Event;
 
 class GameMainLoop : EventListenerBase
 {
 private:
   bool running;
+  bool renderReqReceived;
   SDL_Window* window;
   SDL_Renderer* renderer;
   std::mutex getWindowCfmMutex;
   std::condition_variable getWindowCfmNotification;
+  void HandleWindowEvent(const SDL_Event& event);
 
 protected:
 
