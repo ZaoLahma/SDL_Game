@@ -1,10 +1,12 @@
 #include "gametestfwk.h"
 #include "gametestcoord.h"
+#include "gametestobject.h"
 #include <iostream>
 
 int main(void)
 {
   GameTestCoord coordTests;
+  GameTestObject objectTests;
 
   uint32_t result = GameTestFwk::GetApi()->ExecuteTestCases();
 
